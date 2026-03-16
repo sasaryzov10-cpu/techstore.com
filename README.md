@@ -1,1 +1,973 @@
-# techstore.com
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ИП TechStor — инженеры связи</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.15), transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(125, 211, 252, 0.12), transparent 45%),
+        linear-gradient(160deg, #020617, #020617 40%, #0b1220 70%, #020617);
+      color: #f8fafc;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 20% 30%, rgba(255, 255, 255, 0.95), transparent),
+        radial-gradient(2px 2px at 70% 80%, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(1px 1px at 40% 60%, rgba(255, 255, 255, 0.85), transparent),
+        radial-gradient(1px 1px at 90% 40%, rgba(255, 255, 255, 0.85), transparent),
+        radial-gradient(1.5px 1.5px at 60% 10%, rgba(255, 255, 255, 0.9), transparent),
+        radial-gradient(2px 2px at 15% 75%, rgba(125, 211, 252, 0.9), transparent),
+        radial-gradient(1px 1px at 55% 35%, rgba(186, 230, 253, 0.9), transparent),
+        radial-gradient(1.5px 1.5px at 82% 18%, rgba(255, 255, 255, 0.9), transparent);
+      opacity: 0.55;
+      pointer-events: none;
+      animation: starsTwinkle 6s ease-in-out infinite alternate;
+      z-index: -3;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      right: -120px;
+      bottom: -80px;
+      width: 420px;
+      height: 420px;
+      background: url("satellite-dish.svg") no-repeat center/contain;
+      opacity: 0.14;
+      pointer-events: none;
+      transform: rotate(-10deg);
+      z-index: -2;
+    }
+
+    .space-effects {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .orbit-satellite {
+      position: absolute;
+      top: 10%;
+      right: 12%;
+      width: 90px;
+      height: 90px;
+      opacity: 0.75;
+      animation: satelliteOrbit 18s linear infinite;
+      filter: drop-shadow(0 0 14px rgba(125, 211, 252, 0.4));
+    }
+
+    .space-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+      background-size: 120px 120px;
+      mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9), transparent 80%);
+      opacity: 0.35;
+    }
+
+    .network-line,
+    .network-line-two {
+      position: absolute;
+      border-top: 2px dashed rgba(125, 211, 252, 0.35);
+      transform-origin: left center;
+      animation: networkPulse 4.5s ease-in-out infinite;
+    }
+
+    .network-line {
+      top: 18%;
+      left: 24%;
+      width: 34%;
+      transform: rotate(18deg);
+    }
+
+    .network-line-two {
+      top: 32%;
+      left: 52%;
+      width: 24%;
+      transform: rotate(-28deg);
+      animation-delay: 1.2s;
+    }
+
+    .signal-ring,
+    .signal-ring-two,
+    .signal-ring-three {
+      position: fixed;
+      right: 90px;
+      bottom: 120px;
+      border: 2px solid rgba(125, 211, 252, 0.22);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .signal-ring {
+      width: 110px;
+      height: 110px;
+      animation: signalWave 3.5s linear infinite;
+    }
+
+    .signal-ring-two {
+      width: 170px;
+      height: 170px;
+      right: 60px;
+      bottom: 90px;
+      animation: signalWave 3.5s linear infinite 1.1s;
+    }
+
+    .signal-ring-three {
+      width: 230px;
+      height: 230px;
+      right: 30px;
+      bottom: 60px;
+      animation: signalWave 3.5s linear infinite 2.2s;
+    }
+
+    @keyframes starsTwinkle {
+      0% {
+        opacity: 0.35;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.7;
+        transform: scale(1.01);
+      }
+      100% {
+        opacity: 0.45;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes satelliteOrbit {
+      0% {
+        transform: rotate(0deg) translateX(0) rotate(0deg);
+      }
+      25% {
+        transform: rotate(5deg) translate(-10px, 12px) rotate(6deg);
+      }
+      50% {
+        transform: rotate(0deg) translate(-18px, 0) rotate(0deg);
+      }
+      75% {
+        transform: rotate(-5deg) translate(-8px, -12px) rotate(-6deg);
+      }
+      100% {
+        transform: rotate(0deg) translateX(0) rotate(0deg);
+      }
+    }
+
+    @keyframes networkPulse {
+      0%, 100% {
+        opacity: 0.2;
+        box-shadow: 0 0 0 rgba(56, 189, 248, 0);
+      }
+      50% {
+        opacity: 0.8;
+        box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+      }
+    }
+
+    @keyframes signalWave {
+      0% {
+        opacity: 0;
+        transform: scale(0.65);
+      }
+      30% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.15);
+      }
+    }
+
+    header {
+      padding: 24px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      background: rgba(11, 18, 32, 0.85);
+      z-index: 20;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #38bdf8;
+      position: relative;
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+      animation: logoFloat 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.35));
+    }
+
+    .logo span {
+      position: relative;
+      display: inline-block;
+      animation: logoGlow 2.8s ease-in-out infinite;
+    }
+
+    .logo::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+      opacity: 0.8;
+      animation: logoLine 2.6s linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      50% {
+        transform: translateY(-3px) rotate(-2deg) scale(1.04);
+      }
+    }
+
+    @keyframes logoGlow {
+      0%, 100% {
+        text-shadow: 0 0 0 rgba(56, 189, 248, 0);
+      }
+      50% {
+        text-shadow: 0 0 14px rgba(56, 189, 248, 0.75), 0 0 24px rgba(125, 211, 252, 0.35);
+      }
+    }
+
+    @keyframes logoLine {
+      0% {
+        transform: scaleX(0.35);
+        opacity: 0.35;
+      }
+      50% {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scaleX(0.35);
+        opacity: 0.35;
+      }
+    }
+
+    nav a {
+      color: #e2e8f0;
+      text-decoration: none;
+      margin-left: 24px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #7dd3fc;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      padding: 80px 8%;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 1 1 520px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #bae6fd;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .hero-text h1 {
+      font-size: 54px;
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      font-size: 20px;
+      color: #cbd5e1;
+      margin-bottom: 28px;
+      max-width: 700px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #0ea5e9;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0284c7;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-card {
+      flex: 1 1 330px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-card h3 {
+      margin-bottom: 16px;
+      color: #7dd3fc;
+      font-size: 24px;
+    }
+
+    .stack-list {
+      list-style: none;
+    }
+
+    .stack-list li {
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border-left: 4px solid #0ea5e9;
+    }
+
+    section {
+      padding: 70px 8%;
+    }
+
+    .section-title {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+
+    .section-text {
+      color: #cbd5e1;
+      max-width: 820px;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 24px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      color: #bae6fd;
+    }
+
+    .service-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .order-form {
+      max-width: 720px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .order-form input,
+    .order-form textarea,
+    .order-form select {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      color: #f8fafc;
+      outline: none;
+    }
+
+    .order-form select option {
+      color: #111827;
+    }
+
+    .order-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .order-form input::placeholder,
+    .order-form textarea::placeholder {
+      color: #cbd5e1;
+    }
+
+    .form-note {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .profile {
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .profile h3 {
+      margin-bottom: 8px;
+      color: #e0f2fe;
+    }
+
+    .profile img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 12px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #38bdf8;
+    }
+
+    .contact {
+      text-align: center;
+      background: rgba(14, 165, 233, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    footer {
+      padding: 28px 8%;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .floating-whatsapp {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #25d366;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      z-index: 999;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .floating-whatsapp:hover {
+      transform: scale(1.08);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .whatsapp-tooltip {
+      position: absolute;
+      right: 80px;
+      background: #111827;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: 0.3s;
+      pointer-events: none;
+    }
+
+    .floating-whatsapp:hover .whatsapp-tooltip {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .orbit-satellite {
+        width: 64px;
+        height: 64px;
+        top: 12%;
+        right: 8%;
+      }
+
+      .space-grid {
+        opacity: 0.22;
+      }
+
+      .network-line,
+      .network-line-two {
+        opacity: 0.4;
+      }
+
+      .signal-ring,
+      .signal-ring-two,
+      .signal-ring-three {
+        transform: scale(0.7);
+        transform-origin: bottom right;
+      }
+
+      header {
+        padding: 16px 5%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .logo img {
+        height: 34px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 36px 5% 28px;
+        gap: 24px;
+      }
+
+      .hero-text,
+      .hero-card {
+        flex: 1 1 100%;
+        width: 100%;
+      }
+
+      .hero-text h1 {
+        font-size: 32px;
+        line-height: 1.2;
+      }
+
+      .hero-text p {
+        font-size: 16px;
+      }
+
+      .badge {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+
+      .buttons,
+      .service-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 14px 18px;
+      }
+
+      section {
+        padding: 42px 5%;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .section-text {
+        font-size: 15px;
+      }
+
+      .grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .profile,
+      .step,
+      .hero-card {
+        padding: 18px;
+        border-radius: 16px;
+      }
+
+      .hero-card h3,
+      .card h3,
+      .profile h3 {
+        font-size: 20px;
+      }
+
+      .profile img {
+        width: 96px;
+        height: 96px;
+      }
+
+      .floating-whatsapp {
+        right: 16px;
+        bottom: 16px;
+        width: 58px;
+        height: 58px;
+      }
+
+      .whatsapp-tooltip {
+        display: none;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .hero-text h1 {
+        font-size: 28px;
+      }
+
+      .section-title {
+        font-size: 24px;
+      }
+
+      .logo {
+        font-size: 19px;
+      }
+
+      .stack-list li {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="space-effects">
+    <div class="space-grid"></div>
+    <div class="network-line"></div>
+    <div class="network-line-two"></div>
+    <div class="orbit-satellite">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+        <rect x="42" y="18" width="16" height="24" rx="3" fill="#cbd5e1" />
+        <rect x="18" y="22" width="22" height="14" rx="2" fill="#38bdf8" opacity="0.85" />
+        <rect x="60" y="22" width="22" height="14" rx="2" fill="#38bdf8" opacity="0.85" />
+        <path d="M50 42 L50 62" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round" />
+        <path d="M50 62 C58 62 66 68 68 76" stroke="#e2e8f0" stroke-width="4" stroke-linecap="round" />
+        <circle cx="69" cy="77" r="6" fill="#94a3b8" />
+        <path d="M73 73 C79 67 86 66 92 68" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round" opacity="0.7" />
+        <path d="M74 78 C82 74 89 75 95 79" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+      </svg>
+    </div>
+    <div class="signal-ring"></div>
+    <div class="signal-ring-two"></div>
+    <div class="signal-ring-three"></div>
+  </div>
+
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="TechStor Logo" />
+      <span>ИП TechStor</span>
+    </div>
+    <nav>
+      <a href="#about">О нас</a>
+      <a href="#services">Услуги</a>
+      <a href="#order">Заявка</a>
+      <a href="#setup">Настройка</a>
+      <a href="#engineers">Инженеры</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="badge">Инженеры по настройке и установке спутникового интернета</div>
+      <h1>Надёжная связь там, где важен стабильный интернет</h1>
+      <p>
+        Мы занимаемся установкой, подключением и базовой настройкой спутникового интернета для дома, офиса и удалённых объектов.
+      </p>
+      <div class="buttons">
+        <a href="#services" class="btn btn-primary">Наши услуги</a>
+        <a href="#engineers" class="btn btn-secondary">Инженеры</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3>Основные направления</h3>
+      <ul class="stack-list">
+        <li><strong>Установка оборудования</strong> — монтаж антенн и приёмных блоков</li>
+        <li><strong>Настройка сигнала</strong> — точная ориентация и проверка параметров</li>
+        <li><strong>Подключение сети</strong> — роутеры, кабели, локальная сеть</li>
+        <li><strong>Диагностика</strong> — поиск причин потери сигнала и нестабильной работы</li>
+        <li><strong>Техническая поддержка</strong> — консультация и сопровождение клиента</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">О нас</h2>
+    <p class="section-text">
+      ИП <strong>TechStor</strong> — команда инженеров с большим практическим опытом в области установки и настройки
+      спутникового интернета и сетевого оборудования. Мы много лет занимаемся подключением интернета
+      в домах, офисах и удалённых объектах, где важна стабильная и надёжная связь.
+      <br /><br />
+      За годы работы мы подключили множество объектов и помогли клиентам получить быстрый интернет
+      даже в труднодоступных местах. Наши специалисты выполняют полный цикл работ: от консультации
+      и подбора оборудования до монтажа, настройки и последующего обслуживания системы.
+      <br /><br />
+      Мы ценим качество, надёжность и доверие клиентов, поэтому каждую установку выполняем аккуратно
+      и профессионально.
+    </p>
+  </section>
+
+  <section id="services">
+    <h2 class="section-title">Наши услуги</h2>
+    <p class="section-text">
+      Выполняем полный цикл работ: от первичного осмотра объекта до запуска оборудования и проверки соединения.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <h3>Выезд и осмотр</h3>
+        <p>Оценка места установки, условий видимости и вариантов размещения оборудования.</p>
+        <div class="service-actions">
+          <a href="tel:+77074790966" class="btn btn-primary">Позвонить</a>
+          <a href="#order" class="btn btn-secondary">Заказать установку</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Монтаж системы</h3>
+        <p>Установка креплений, антенны, кабельных линий и сетевого оборудования.</p>
+        <div class="service-actions">
+          <a href="tel:+77074790966" class="btn btn-primary">Позвонить</a>
+          <a href="#order" class="btn btn-secondary">Заказать установку</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Настройка интернета</h3>
+        <p>Проверка соединения, базовая конфигурация сети и тестирование доступа.</p>
+        <div class="service-actions">
+          <a href="tel:+77074790966" class="btn btn-primary">Позвонить</a>
+          <a href="#order" class="btn btn-secondary">Заказать установку</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Сервисное обслуживание</h3>
+        <p>Контроль стабильности работы и помощь при технических неисправностях.</p>
+        <div class="service-actions">
+          <a href="tel:+77074790966" class="btn btn-primary">Позвонить</a>
+          <a href="#order" class="btn btn-secondary">Заказать установку</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="order">
+    <h2 class="section-title">Заказать установку</h2>
+    <p class="section-text">
+      Оставьте заявку, и мы свяжемся с вами для уточнения адреса, типа объекта и удобного времени установки.
+    </p>
+    <form id="orderForm" class="order-form" action="https://formsubmit.co/sasaryzov10@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Новая заявка с сайта TechStor" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <div class="form-grid">
+        <input type="text" name="name" placeholder="Ваше имя" required />
+        <input type="tel" name="phone" placeholder="Ваш телефон" required />
+        <select name="service" required>
+          <option value="" selected disabled>Выберите услугу</option>
+          <option>Выезд и осмотр</option>
+          <option>Монтаж системы</option>
+          <option>Настройка интернета</option>
+          <option>Сервисное обслуживание</option>
+        </select>
+        <input type="text" name="address" placeholder="Город или адрес объекта" />
+        <textarea class="full-width" name="message" placeholder="Комментарий к заявке"></textarea>
+        <div class="full-width service-actions" style="justify-content:center;">
+          <a href="tel:+77074790966" class="btn btn-primary">Позвонить</a>
+          <button type="submit" class="btn btn-secondary">Отправить заявку</button>
+        </div>
+      </div>
+      <p class="form-note">После отправки заявки форма откроет WhatsApp с готовым текстом и отправит копию заявки на email sasaryzov10@gmail.com.</p>
+    </form>
+  </section>
+
+  <section id="setup">
+    <h2 class="section-title">Этапы установки</h2>
+    <p class="section-text">
+      Ниже показана типовая последовательность работ при подключении спутникового интернета.
+    </p>
+    <div class="steps">
+      <div class="step"><strong>1.</strong> Анализ объекта и выбор подходящего места для оборудования.</div>
+      <div class="step"><strong>2.</strong> Монтаж антенны и прокладка кабеля до точки подключения.</div>
+      <div class="step"><strong>3.</strong> Подключение сетевого оборудования и проверка питания.</div>
+      <div class="step"><strong>4.</strong> Настройка соединения и контроль основных параметров сети.</div>
+      <div class="step"><strong>5.</strong> Финальное тестирование и передача системы заказчику.</div>
+    </div>
+  </section>
+
+  <section id="engineers">
+    <h2 class="section-title">Наши инженеры</h2>
+    <p class="section-text">
+      Команда специалистов, отвечающая за монтаж, настройку и проверку качества подключения.
+    </p>
+
+    <div class="profile">
+      <img src="alexander.jpg" alt="Рыжов Александр" />
+      <h3>Рыжов Александр</h3>
+      <p>Инженер по установке и настройке сетевого оборудования. Отвечает за техническую диагностику, монтаж и запуск системы.</p>
+    </div>
+
+    <div class="profile">
+      <h3>Агайдаров Нурдаулет</h3>
+      <p>Инженер по подключению и сопровождению спутникового интернета. Специализируется на настройке соединения и проверке стабильности сети.</p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2 class="section-title">Связь с нами</h2>
+    <p class="section-text" style="margin: 0 auto;">
+      Для консультации по установке, подключению и техническим вопросам свяжитесь с нашей инженерной командой.<br /><br />
+      <strong>Телефон:</strong> +7 707 479 0966<br />
+      <strong>Email:</strong>
+      <a href="mailto:sasaryzov10@gmail.com" style="color:#7dd3fc;text-decoration:none;">sasaryzov10@gmail.com</a>
+      <br /><br />
+      <a href="https://api.whatsapp.com/send?phone=87074790966" style="display:inline-block;padding:14px 22px;border-radius:12px;background:#25D366;color:white;text-decoration:none;font-weight:bold;">Написать в WhatsApp</a>
+      <br /><br />
+      <a href="mailto:sasaryzov10@gmail.com" style="display:inline-block;padding:14px 22px;border-radius:12px;background:#0ea5e9;color:white;text-decoration:none;font-weight:bold;">Написать на Email</a>
+    </p>
+  </section>
+
+  <footer>
+    © 2026 ИП TechStor — установка и настройка спутникового интернета.
+  </footer>
+
+  <a href="https://api.whatsapp.com/send?phone=87074790966" class="floating-whatsapp" aria-label="WhatsApp" target="_blank">
+    <span class="whatsapp-tooltip">Напишите нам</span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="30" height="30" fill="white" aria-hidden="true">
+      <path d="M16 .4C7.4.4.4 7.3.4 15.9c0 2.8.7 5.5 2.1 7.9L.2 31.6l8-2.1c2.3 1.2 4.9 1.9 7.6 1.9 8.6 0 15.6-6.9 15.6-15.5S24.6.4 16 .4zm0 28.2c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5C3.8 20.6 3.1 18.3 3.1 16c0-7.1 5.8-12.9 12.9-12.9S28.9 8.9 28.9 16 23.1 28.6 16 28.6zm7.1-9.7c-.4-.2-2.2-1.1-2.5-1.2-.3-.1-.6-.2-.8.2-.2.3-.9 1.2-1.1 1.4-.2.2-.4.3-.8.1-.4-.2-1.7-.6-3.2-2-.9-.8-1.5-1.7-1.7-2-.2-.3 0-.5.1-.7.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7 0-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.6 5.6 5 .8.3 1.4.5 1.9.6.8.2 1.6.2 2.2.1.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.2-.7-.4z" />
+    </svg>
+  </a>
+
+  <script>
+    (function () {
+      const orderForm = document.getElementById('orderForm');
+      if (!orderForm) return;
+
+      orderForm.addEventListener('submit', function () {
+        const name = orderForm.querySelector('[name="name"]').value.trim();
+        const phone = orderForm.querySelector('[name="phone"]').value.trim();
+        const service = orderForm.querySelector('[name="service"]').value.trim();
+        const address = orderForm.querySelector('[name="address"]').value.trim();
+        const message = orderForm.querySelector('[name="message"]').value.trim();
+
+        const whatsappText = [
+          'Здравствуйте! Хочу заказать установку спутникового интернета.',
+          '',
+          'Имя: ' + name,
+          'Телефон: ' + phone,
+          'Услуга: ' + service,
+          'Адрес: ' + (address || 'Не указан'),
+          'Комментарий: ' + (message || 'Нет')
+        ].join('\n');
+
+        const whatsappUrl = 'https://api.whatsapp.com/send?phone=87074790966&text=' + encodeURIComponent(whatsappText);
+        window.open(whatsappUrl, '_blank');
+      });
+    })();
+  </script>
+</body>
+</html>
